@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ron567 · 技术博客主页</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500&family=Noto+Sans+SC:wght@300;400;500&family=Source+Serif+4:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Backgrounds */
+    --bg-top:#0E1F17;
+    --bg-mid:#09120E;
+    --bg-footer-bottom:#08120E;
+    /* Brand & text */
+    --text:#EAF3EC;      /* headings / brand name */
+    --green:#7DD9A6;     /* accent */
+    --sub:#9DB5A8;       /* secondary text */
+    --muted:#6E8B7C;     /* muted / captions */
+    --para:#B9CDBF;      /* paragraph body */
+    --light:#C9D8CF;     /* nav links / traits / contacts */
+    /* Glass surfaces */
+    --glass:rgba(255,255,255,0.05);
+    --glass-2:rgba(255,255,255,0.04);
+    --glass-border:rgba(255,255,255,0.10);
+    --glass-border-soft:rgba(255,255,255,0.08);
+    --green-stroke:rgba(125,217,166,0.25);
+    --green-stroke-strong:rgba(125,217,166,0.50);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:#08120E;
+    color:var(--text);
+    font-family:"Noto Sans SC",sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none;}
+
+  /* ---------- Scaling wrapper (preserve original 1440px canvas, proportional) ---------- */
+  #scaler{margin:0 auto;position:relative;}
+  #stage{
+    width:1440px;
+    position:relative;
+    overflow:hidden;
+    transform-origin:top left;
+    background:linear-gradient(180deg,var(--bg-top) 0%,var(--bg-mid) 100%);
+  }
+
+  /* ---------- Decorative fog glows (absolutely positioned, behind content) ---------- */
+  .fog{position:absolute;z-index:0;pointer-events:none;filter:blur(20px);}
+  .fog-1{left:-160px;top:40px;width:760px;height:760px;
+    background:radial-gradient(circle,rgba(125,217,166,0.42) 0%,rgba(125,217,166,0) 70%);}
+  .fog-2{left:920px;top:-120px;width:680px;height:680px;
+    background:radial-gradient(circle,rgba(51,107,77,0.50) 0%,rgba(51,107,77,0) 70%);}
+  .fog-3{left:280px;top:1480px;width:940px;height:620px;
+    background:radial-gradient(circle,rgba(77,140,107,0.32) 0%,rgba(77,140,107,0) 70%);}
+
+  .content{position:relative;z-index:1;}
+
+  /* ============================ NAV ============================ */
+  .nav{
+    width:1440px;height:80px;
+    display:flex;align-items:center;
+    padding:0 64px;
+    background:rgba(255,255,255,0.04);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+  }
+  .logo{display:flex;align-items:center;gap:10px;}
+  .logo .leaf{width:22px;height:22px;display:block;}
+  .logo .brand{display:flex;flex-direction:column;line-height:1;}
+  .logo .brand .name{font-family:"Noto Serif SC",serif;font-weight:500;font-size:22px;color:var(--text);}
+  .logo .brand .sub{font-family:"Source Serif 4",serif;font-weight:500;font-size:11px;color:var(--green);margin-top:3px;letter-spacing:1px;}
+  .nav-center{flex:1;display:flex;justify-content:center;gap:36px;}
+  .nav-center a{font-family:"Noto Sans SC",sans-serif;font-weight:400;font-size:15px;color:var(--light);transition:color .3s ease;}
+  .nav-center a:hover{color:var(--text);}
+  .nav-cta{
+    display:flex;align-items:center;justify-content:center;
+    height:40px;padding:0 22px;border-radius:9999px;
+    background:rgba(125,217,166,0.12);
+    border:1px solid rgba(125,217,166,0.50);
+    color:var(--green);font-size:14px;font-family:"Noto Sans SC",sans-serif;font-weight:500;
+    transition:background .3s ease;
+  }
+  .nav-cta:hover{background:rgba(125,217,166,0.20);}
+
+  /* ============================ HERO ============================ */
+  .hero{
+    width:1440px;height:945px;
+    display:flex;flex-direction:column;align-items:center;
+    gap:30px;padding:130px 0 90px;
+  }
+  .hero .eyebrow{
+    font-family:"Source Serif 4",serif;font-style:italic;font-size:15px;color:var(--green);
+    text-align:center;
+  }
+  .hero .headline{
+    width:1200px;text-align:center;
+    font-family:"Noto Serif SC",serif;font-weight:300;font-size:60px;line-height:125%;color:var(--text);
+  }
+  .hero .sub{
+    width:640px;text-align:center;
+    font-family:"Noto Sans SC",sans-serif;font-weight:300;font-size:18px;line-height:185%;color:var(--sub);
+  }
+  .hero .cta-row{display:flex;align-items:center;gap:18px;}
+  .cta-primary{
+    display:flex;align-items:center;justify-content:center;
+    height:53px;padding:0 34px;border-radius:9999px;
+    background:var(--green);
+    color:#0C1712;font-size:16px;font-family:"Noto Sans SC",sans-serif;font-weight:500;
+    box-shadow:0 8px 24px rgba(125,217,166,0.35);
+    transition:transform .3s ease,box-shadow .3s ease;
+  }
+  .cta-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(125,217,166,0.50);}
+  .hero .secondary-link{font-family:"Noto Sans SC",sans-serif;font-weight:400;font-size:15px;color:var(--light);transition:color .3s ease;}
+  .hero .secondary-link:hover{color:var(--text);}
+  .hero .scroll-hint{font-family:"Noto Sans SC",sans-serif;font-weight:300;font-size:13px;color:var(--muted);}
+  .hero .hero-img{
+    width:1200px;height:340px;border-radius:24px;object-fit:cover;
+    border:1px solid rgba(255,255,255,0.10);display:block;
+  }
+
+  /* ============================ ABOUT ============================ */
+  .about{width:1440px;min-height:598px;display:flex;flex-direction:column;align-items:center;gap:48px;padding:100px 0;}
+  .section-head{display:flex;flex-direction:column;align-items:center;gap:14px;}
+  .section-head .eyebrow{font-family:"Source Serif 4",serif;font-style:italic;font-size:14px;color:var(--green);}
+  .section-head .title{font-family:"Noto Serif SC",serif;font-weight:300;font-size:40px;color:var(--text);}
+  .about-body{width:1200px;display:flex;align-items:center;gap:56px;}
+  .about-text{flex:1;display:flex;flex-direction:column;gap:20px;}
+  .about-text .para{font-family:"Noto Sans SC",sans-serif;font-weight:300;font-size:17px;line-height:190%;color:var(--para);}
+  .traits{display:flex;flex-wrap:wrap;gap:12px;}
+  .trait{
+    display:flex;align-items:center;height:36px;padding:0 16px;border-radius:9999px;
+    background:var(--glass);border:1px solid var(--green-stroke);
+    color:var(--light);font-size:14px;font-family:"Noto Sans SC",sans-serif;font-weight:400;
+  }
+  .portrait{
+    width:260px;height:260px;border-radius:9999px;flex:0 0 auto;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+    background:var(--glass);
+    border:1px solid rgba(125,217,166,0.30);
+    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    box-shadow:0 16px 40px rgba(0,0,0,0.25);
+  }
+  .portrait .mountain{width:64px;height:64px;display:block;}
+  .portrait .cap{font-family:"Noto Sans SC",sans-serif;font-weight:300;font-size:12px;color:var(--sub);}
+
+  /* ============================ WORKS ============================ */
+  .works{width:1440px;min-height:808px;display:flex;flex-direction:column;align-items:center;gap:48px;padding:100px 0;}
+  .work-row{width:1200px;display:flex;gap:24px;}
+  .work-card{
+    flex:1;height:211px;
+    display:flex;flex-direction:column;gap:14px;
+    padding:32px 32px 28px;
+    background:var(--glass);
+    border:1px solid var(--glass-border);
+    border-radius:20px;
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    box-shadow:0 12px 30px rgba(0,0,0,0.20);
+    transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,border-color .35s ease;
+  }
+  .work-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(0,0,0,0.35);border-color:rgba(125,217,166,0.25);}
+  .card-top{display:flex;align-items:center;justify-content:space-between;}
+  .card-top .idx{font-family:"Source Serif 4",serif;font-style:italic;font-size:22px;color:var(--green);}
+  .card-top .leaf{width:20px;height:20px;display:block;}
+  .card-title{font-family:"Noto Serif SC",serif;font-weight:400;font-size:24px;color:var(--text);}
+  .card-desc{font-family:"Noto Sans SC",sans-serif;font-weight:300;font-size:15px;line-height:170%;color:var(--sub);}
+  .card-tag{font-family:"Noto Sans SC",sans-serif;font-weight:400;font-size:13px;color:var(--muted);margin-top:auto;}
+
+  /* ============================ FOOTER ============================ */
+  .footer{
+    width:1440px;min-height:533px;position:relative;
+    display:flex;flex-direction:column;align-items:center;gap:40px;
+    padding:90px 0 40px;
+    background:linear-gradient(180deg,var(--bg-top) 0%,var(--bg-footer-bottom) 100%);
+    overflow:hidden;
+  }
+  .footer .watermark{
+    position:absolute;top:30px;left:50%;transform:translateX(-50%);
+    font-family:"Noto Serif SC",serif;font-weight:300;font-size:220px;line-height:1;
+    color:rgba(234,243,236,0.035);white-space:nowrap;z-index:0;pointer-events:none;user-select:none;
+  }
+  .footer .content-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:40px;width:100%;}
+  .footer .top-line{width:1200px;height:1px;background:rgba(255,255,255,0.08);}
+  .footer-head{display:flex;flex-direction:column;align-items:center;gap:12px;}
+  .footer-head .name{font-family:"Noto Serif SC",serif;font-weight:300;font-size:56px;color:var(--text);}
+  .footer-head .tag{font-family:"Noto Sans SC",sans-serif;font-weight:300;font-size:16px;color:var(--sub);}
+  .contact-row{display:flex;gap:16px;}
+  .contact-pill{
+    display:flex;align-items:center;height:40px;padding:0 20px;border-radius:9999px;
+    background:var(--glass);border:1px solid var(--green-stroke);
+    color:var(--light);font-size:14px;font-family:"Noto Sans SC",sans-serif;font-weight:400;
+    transition:border-color .3s ease,background .3s ease;
+  }
+  .contact-pill:hover{border-color:rgba(125,217,166,0.50);background:rgba(125,217,166,0.08);}
+  .social-row{display:flex;gap:16px;}
+  .social-link{width:44px;height:44px;display:block;transition:transform .3s ease;}
+  .social-link:hover{transform:translateY(-3px);}
+  .social-link img{width:44px;height:44px;display:block;}
+  .bottom-bar{width:1200px;display:flex;align-items:center;justify-content:space-between;}
+  .bottom-bar span{font-family:"Noto Sans SC",sans-serif;font-weight:300;font-size:13px;color:var(--muted);}
+
+  /* ---------- Weather background canvas ---------- */
+  #weather-canvas{position:absolute;inset:0;z-index:0;pointer-events:none;}
+
+  /* ---------- Weather switcher (nav right, before CTA) ---------- */
+  .weather-switch{
+    display:flex;align-items:center;gap:2px;
+    height:40px;padding:0 4px;margin-right:16px;border-radius:9999px;
+    background:var(--glass);border:1px solid var(--glass-border);
+  }
+  .weather-btn{
+    display:flex;align-items:center;justify-content:center;
+    width:32px;height:32px;border-radius:9999px;border:none;background:transparent;
+    color:var(--muted);cursor:pointer;padding:0;
+    transition:color .3s ease,background .3s ease;
+  }
+  .weather-btn:hover{color:var(--light);}
+  .weather-btn.active{color:#0C1712;background:var(--green);}
+  .weather-btn:focus-visible{outline:2px solid var(--green-stroke-strong);outline-offset:2px;}
+  .weather-btn svg{width:16px;height:16px;display:block;}
+
+  /* ---------- Scroll reveal (subtle, layout-neutral) ---------- */
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1);}
+  .reveal.in{opacity:1;transform:none;}
+
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+  <div id="scaler">
+    <div id="stage">
+      <!-- Fog glows -->
+      <div class="fog fog-1"></div>
+      <div class="fog fog-2"></div>
+      <div class="fog fog-3"></div>
+
+      <div class="content">
+        <!-- ===================== NAV ===================== -->
+        <nav class="nav">
+          <a class="logo" href="#top" aria-label="Ron567 首页">
+            <img class="leaf" src="assets/svg/2_8.svg" alt="">
+            <span class="brand">
+              <span class="name">Ron567</span>
+              <span class="sub">SOFTWARE · AI</span>
+            </span>
+          </a>
+          <div class="nav-center">
+            <a href="#about">关于</a>
+            <a href="#works">作品</a>
+            <a href="#works">随笔</a>
+          </div>
+          <div class="weather-switch" role="group" aria-label="背景天气切换">
+            <button type="button" class="weather-btn" data-weather="sun" aria-pressed="false" aria-label="晴天" title="晴天">
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            </button>
+            <button type="button" class="weather-btn" data-weather="rain" aria-pressed="false" aria-label="雨天" title="雨天">
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="16" y1="13" x2="16" y2="21"/><line x1="8" y1="13" x2="8" y2="21"/><line x1="12" y1="15" x2="12" y2="23"/><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"/></svg>
+            </button>
+            <button type="button" class="weather-btn" data-weather="snow" aria-pressed="false" aria-label="雪天" title="雪天">
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20"/><path d="M12 2v20"/><path d="m20 16-4-4 4-4"/><path d="m4 8 4 4-4 4"/><path d="m16 4-4 4-4-4"/><path d="m8 20 4-4 4 4"/></svg>
+            </button>
+          </div>
+          <a class="nav-cta" href="#footer">联系我</a>
+        </nav>
+
+        <!-- ===================== HERO ===================== -->
+        <section class="hero" id="top">
+          <p class="eyebrow">SOFTWARE &amp; AI ENGINEER · 软件与人工智能工程师</p>
+          <h1 class="headline">在代码与智能之间，造一片绿野</h1>
+          <p class="sub">我是 Ron567，软件工程师 &amp; AI 工程师。这里收录我的开源作品、技术随笔与实验——关于工程，关于智能，也关于如何把复杂变简单。</p>
+          <div class="cta-row">
+            <a class="cta-primary" href="#works">看看我的作品</a>
+            <a class="secondary-link" href="#works">读读随笔 ↓</a>
+          </div>
+          <p class="scroll-hint">向下，进入我的世界</p>
+          <img class="hero-img" src="assets/images/2_28.png" alt="雾绿神经网络意象图">
+        </section>
+
+        <!-- ===================== ABOUT ===================== -->
+        <section class="about" id="about">
+          <div class="section-head reveal">
+            <p class="eyebrow">ABOUT · 关于我</p>
+            <h2 class="title">我是 Ron567</h2>
+          </div>
+          <div class="about-body reveal">
+            <div class="about-text">
+              <p class="para">我是一名软件工程师，也是 AI 工程师。每天和代码、模型，以及无数个「为什么跑不通」打交道。比起堆功能，我更在意系统是否优雅、是否让人用得舒服。</p>
+              <p class="para">这个博客，是我留给技术的私人笔记——没有术语堆砌，只有踩过的坑、想通的问题，和偶尔被一段好代码击中的瞬间。</p>
+              <div class="traits">
+                <span class="trait">后端架构</span>
+                <span class="trait">机器学习</span>
+                <span class="trait">开源</span>
+                <span class="trait">技术写作</span>
+                <span class="trait">系统设计</span>
+              </div>
+            </div>
+            <div class="portrait">
+              <img class="mountain" src="assets/svg/2_49.svg" alt="">
+              <span class="cap">Ron567 · 软件 &amp; AI 工程师</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== WORKS ===================== -->
+        <section class="works" id="works">
+          <div class="section-head reveal">
+            <p class="eyebrow">WORKS · 作品 · 随笔</p>
+            <h2 class="title">把思考，做成作品</h2>
+          </div>
+          <div class="work-row reveal">
+            <article class="work-card">
+              <div class="card-top">
+                <span class="idx">01</span>
+                <img class="leaf" src="assets/svg/2_62.svg" alt="">
+              </div>
+              <h3 class="card-title">智能体框架 Atlas</h3>
+              <p class="card-desc">自研的轻量 AI Agent 编排框架，让多步任务像搭积木一样组合。</p>
+              <span class="card-tag">开源项目 · 2024</span>
+            </article>
+            <article class="work-card">
+              <div class="card-top">
+                <span class="idx">02</span>
+                <img class="leaf" src="assets/svg/2_71.svg" alt="">
+              </div>
+              <h3 class="card-title">代码伴侣 CodeMate</h3>
+              <p class="card-desc">基于大模型的重构与补全插件，把重复劳动交给模型。</p>
+              <span class="card-tag">AI 工具 · 2023</span>
+            </article>
+          </div>
+          <div class="work-row reveal">
+            <article class="work-card">
+              <div class="card-top">
+                <span class="idx">03</span>
+                <img class="leaf" src="assets/svg/2_81.svg" alt="">
+              </div>
+              <h3 class="card-title">技术随笔 · 100 篇</h3>
+              <p class="card-desc">关于工程、AI 与产品思考的长期写作，已持续更新三年。</p>
+              <span class="card-tag">写作专栏 · 2022–至今</span>
+            </article>
+            <article class="work-card">
+              <div class="card-top">
+                <span class="idx">04</span>
+                <img class="leaf" src="assets/svg/2_90.svg" alt="">
+              </div>
+              <h3 class="card-title">开源贡献</h3>
+              <p class="card-desc">在多个社区维护核心模块，也乐于把踩过的坑写成文档。</p>
+              <span class="card-tag">社区 · 持续中</span>
+            </article>
+          </div>
+        </section>
+
+        <!-- ===================== FOOTER ===================== -->
+        <footer class="footer" id="footer">
+          <div class="watermark">Ron567</div>
+          <div class="content-inner">
+            <div class="top-line"></div>
+            <div class="footer-head">
+              <span class="name">Ron567</span>
+              <span class="tag">写代码，也写思考。</span>
+            </div>
+            <div class="contact-row">
+              <a class="contact-pill" href="mailto:ron567@devmail.com">ron567@devmail.com</a>
+              <a class="contact-pill" href="#">GitHub · @ron567</a>
+              <a class="contact-pill" href="#">Blog · ron567.dev</a>
+            </div>
+            <div class="social-row">
+              <a class="social-link" href="#" aria-label="社交平台 1"><img src="assets/svg/2_110.svg" alt=""></a>
+              <a class="social-link" href="#" aria-label="社交平台 2"><img src="assets/svg/2_113.svg" alt=""></a>
+              <a class="social-link" href="#" aria-label="社交平台 3"><img src="assets/svg/2_117.svg" alt=""></a>
+            </div>
+            <div class="bottom-bar">
+              <span>2026 Ron567 · 代码与思考</span>
+              <span>于键盘与模型之间写成</span>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Proportional scaling: keep the 1440px design canvas, scale to viewport width (cap at 1x).
+    function fit(){
+      var stage = document.getElementById('stage');
+      var scaler = document.getElementById('scaler');
+      var s = Math.min(1, window.innerWidth / 1440);
+      stage.style.transform = 'scale(' + s + ')';
+      scaler.style.width = (1440 * s) + 'px';
+      scaler.style.height = (stage.offsetHeight * s) + 'px';
+    }
+    window.addEventListener('resize', fit);
+    window.addEventListener('load', fit);
+    fit();
+
+    // Subtle scroll reveal (layout-neutral)
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  </script>
+  <script src="weather.js" defer></script>
+</body>
+</html>

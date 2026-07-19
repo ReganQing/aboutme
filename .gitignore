@@ -1,0 +1,48 @@
+# ---------- Local tooling / AI workspace ----------
+.workbuddy/
+.claude/
+
+# ---------- Secrets & environment ----------
+.env
+.env.*
+!.env.example
+
+# ---------- OS junk ----------
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+# Linux
+*~
+.fuse_hidden*
+
+# ---------- Editors / IDEs ----------
+.vscode/
+.idea/
+*.suo
+*.swp
+*.swn
+
+# ---------- Logs ----------
+*.log
+logs/
+
+# ---------- Node / build output (reserved for future tooling) ----------
+node_modules/
+dist/
+build/
+.cache/
+.parcel-cache/
+*.tsbuildinfo
+
+# ---------- Temp / backup files ----------
+*.tmp
+*.temp
+*.bak
+*.orig
