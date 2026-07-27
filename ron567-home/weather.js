@@ -67,6 +67,9 @@
     height = stage.clientHeight;
     canvas.width = Math.round(width * ratio);
     canvas.height = Math.round(height * ratio);
+    // 显式锁定 CSS 尺寸：防止位图固有尺寸（×dpr）参与布局把 #stage 撑出溢出
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
     ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
     if (mode !== 'off') {
       buildParticles(mode);

@@ -46,3 +46,8 @@ build/
 *.temp
 *.bak
 *.orig
+.tmp-*
+.vercel-tmp/
+
+# ---------- Local SQLite data (由同步任务生成，不入库) ----------
+ron567-home/server/data/

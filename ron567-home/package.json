@@ -1,0 +1,16 @@
+{
+  "name": "ron567-home",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Ron567 个人主页：静态页面 + 本地数据服务（GitHub 项目 / 博客文章同步至 SQLite）",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "sync": "node server/sync.js",
+    "sync:github": "node server/sync.js github",
+    "sync:blog": "node server/sync.js blog"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  }
+}

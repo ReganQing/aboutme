@@ -154,7 +154,7 @@
   .works{width:1440px;min-height:808px;display:flex;flex-direction:column;align-items:center;gap:48px;padding:100px 0;}
   .work-row{width:1200px;display:flex;gap:24px;}
   .work-card{
-    flex:1;height:211px;
+    flex:1;min-height:211px;
     display:flex;flex-direction:column;gap:14px;
     padding:32px 32px 28px;
     background:var(--glass);
@@ -205,8 +205,81 @@
   .bottom-bar{width:1200px;display:flex;align-items:center;justify-content:space-between;}
   .bottom-bar span{font-family:"Noto Sans SC",sans-serif;font-weight:300;font-size:13px;color:var(--muted);}
 
+  /* ============================ GITHUB PROJECTS ============================ */
+  .github{width:1440px;display:flex;flex-direction:column;align-items:center;gap:48px;padding:100px 0;}
+  .gh-grid{width:1200px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .gh-card{
+    display:flex;flex-direction:column;gap:14px;
+    min-height:211px;padding:32px 32px 28px;
+    background:var(--glass);
+    border:1px solid var(--glass-border);
+    border-radius:20px;
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    box-shadow:0 12px 30px rgba(0,0,0,0.20);
+    transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,border-color .35s ease;
+  }
+  .gh-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(0,0,0,0.35);border-color:rgba(125,217,166,0.25);}
+  .gh-meta{display:flex;align-items:center;gap:8px;}
+  .gh-lang-dot{width:9px;height:9px;border-radius:9999px;display:inline-block;}
+  .gh-lang{font-family:"Noto Sans SC",sans-serif;font-weight:400;font-size:13px;color:var(--sub);}
+  .gh-stars{font-family:"Noto Sans SC",sans-serif;font-weight:400;font-size:13px;color:var(--muted);}
+  .gh-title{font-size:21px;word-break:break-word;}
+  .gh-desc{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+  .section-foot{display:flex;align-items:center;gap:20px;}
+  .more-link{
+    display:flex;align-items:center;height:40px;padding:0 22px;border-radius:9999px;
+    background:var(--glass);border:1px solid var(--green-stroke);
+    color:var(--light);font-size:14px;font-family:"Noto Sans SC",sans-serif;font-weight:400;
+    transition:border-color .3s ease,background .3s ease;
+  }
+  .more-link:hover{border-color:rgba(125,217,166,0.50);background:rgba(125,217,166,0.08);}
+
+  /* ============================ BLOG POSTS ============================ */
+  .blog{width:1440px;display:flex;flex-direction:column;align-items:center;gap:48px;padding:100px 0;}
+  .blog-list{width:1200px;display:flex;flex-direction:column;gap:18px;}
+  .blog-item{
+    display:flex;flex-direction:column;gap:10px;
+    padding:26px 32px;
+    background:var(--glass-2);
+    border:1px solid var(--glass-border-soft);
+    border-radius:18px;
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    transition:transform .3s cubic-bezier(.16,1,.3,1),border-color .3s ease,background .3s ease;
+  }
+  .blog-item:hover{transform:translateX(6px);border-color:rgba(125,217,166,0.30);background:rgba(125,217,166,0.05);}
+  .blog-item-head{display:flex;align-items:baseline;justify-content:space-between;gap:24px;}
+  .blog-title{font-family:"Noto Serif SC",serif;font-weight:400;font-size:21px;color:var(--text);}
+  .blog-date{font-family:"Source Serif 4",serif;font-style:italic;font-size:14px;color:var(--green);flex:0 0 auto;}
+  .blog-excerpt{font-family:"Noto Sans SC",sans-serif;font-weight:300;font-size:15px;line-height:175%;color:var(--sub);}
+  .blog-tags{display:flex;flex-wrap:wrap;gap:8px;}
+  .blog-cat{
+    display:flex;align-items:center;height:26px;padding:0 12px;border-radius:9999px;
+    background:rgba(125,217,166,0.10);border:1px solid var(--green-stroke);
+    color:var(--green);font-size:12px;font-family:"Noto Sans SC",sans-serif;
+  }
+  .blog-tag{
+    display:flex;align-items:center;height:26px;padding:0 12px;border-radius:9999px;
+    background:var(--glass);border:1px solid var(--glass-border-soft);
+    color:var(--muted);font-size:12px;font-family:"Noto Sans SC",sans-serif;
+  }
+
+  /* ---------- Sync widget（数据同步：手动触发 + 上次同步时间） ---------- */
+  .sync-widget{display:flex;align-items:center;gap:12px;}
+  .sync-btn{
+    display:flex;align-items:center;height:34px;padding:0 16px;border-radius:9999px;
+    background:var(--glass);border:1px solid var(--green-stroke);
+    color:var(--light);font-size:13px;font-family:"Noto Sans SC",sans-serif;cursor:pointer;
+    transition:border-color .3s ease,background .3s ease;
+  }
+  .sync-btn:hover{border-color:rgba(125,217,166,0.50);background:rgba(125,217,166,0.08);}
+  .sync-btn.busy{opacity:0.6;cursor:wait;}
+  .sync-time{font-family:"Noto Sans SC",sans-serif;font-weight:300;font-size:12px;color:var(--muted);}
+  .data-empty{font-family:"Noto Sans SC",sans-serif;font-weight:300;font-size:15px;color:var(--muted);grid-column:1/-1;}
+
   /* ---------- Weather background canvas ---------- */
-  #weather-canvas{position:absolute;inset:0;z-index:0;pointer-events:none;}
+  /* width/height 必须显式声明：canvas 是替换元素，否则会按位图固有尺寸（CSS 尺寸 × dpr）
+     渲染，把 #stage 撑出溢出，锚点跳转时滚动量会滚进 #stage 内部，页面底部出现大片空白 */
+  #weather-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;}
 
   /* ---------- Weather switcher (nav right, before CTA) ---------- */
   .weather-switch{
@@ -224,6 +297,22 @@
   .weather-btn.active{color:#0C1712;background:var(--green);}
   .weather-btn:focus-visible{outline:2px solid var(--green-stroke-strong);outline-offset:2px;}
   .weather-btn svg{width:16px;height:16px;display:block;}
+
+  /* ---------- Back to top（fixed 于视口，不参与 #stage 缩放） ---------- */
+  .to-top{
+    position:fixed;right:28px;bottom:28px;z-index:10;
+    display:flex;align-items:center;justify-content:center;
+    width:46px;height:46px;border-radius:9999px;border:1px solid var(--green-stroke);
+    background:rgba(14,31,23,0.72);color:var(--green);cursor:pointer;
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    box-shadow:0 10px 26px rgba(0,0,0,0.35);
+    opacity:0;visibility:hidden;transform:translateY(12px);
+    transition:opacity .35s ease,transform .35s cubic-bezier(.16,1,.3,1),visibility .35s,border-color .3s ease,background .3s ease;
+  }
+  .to-top.show{opacity:1;visibility:visible;transform:none;}
+  .to-top:hover{border-color:var(--green-stroke-strong);background:rgba(125,217,166,0.14);}
+  .to-top:focus-visible{outline:2px solid var(--green-stroke-strong);outline-offset:2px;}
+  .to-top svg{width:18px;height:18px;display:block;}
 
   /* ---------- Scroll reveal (subtle, layout-neutral) ---------- */
   .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1);}
@@ -256,7 +345,8 @@
           <div class="nav-center">
             <a href="#about">关于</a>
             <a href="#works">作品</a>
-            <a href="#works">随笔</a>
+            <a href="#github">项目</a>
+            <a href="#blog">随笔</a>
           </div>
           <div class="weather-switch" role="group" aria-label="背景天气切换">
             <button type="button" class="weather-btn" data-weather="sun" aria-pressed="false" aria-label="晴天" title="晴天">
@@ -317,44 +407,76 @@
             <h2 class="title">把思考，做成作品</h2>
           </div>
           <div class="work-row reveal">
-            <article class="work-card">
+            <a class="work-card" href="https://github.com/ReganQing/FlowAnalysis" target="_blank" rel="noopener">
               <div class="card-top">
                 <span class="idx">01</span>
                 <img class="leaf" src="assets/svg/2_62.svg" alt="">
               </div>
-              <h3 class="card-title">智能体框架 Atlas</h3>
-              <p class="card-desc">自研的轻量 AI Agent 编排框架，让多步任务像搭积木一样组合。</p>
-              <span class="card-tag">开源项目 · 2024</span>
-            </article>
-            <article class="work-card">
+              <h3 class="card-title">FlowAnalysis</h3>
+              <p class="card-desc">基于 LangChain4J 与 LangGraph4j 的 Multi-Agent 数据可视化分析 AI 助理。</p>
+              <span class="card-tag">开源项目 · Java · 2026</span>
+            </a>
+            <a class="work-card" href="https://github.com/ReganQing/java-info-hunter" target="_blank" rel="noopener">
               <div class="card-top">
                 <span class="idx">02</span>
                 <img class="leaf" src="assets/svg/2_71.svg" alt="">
               </div>
-              <h3 class="card-title">代码伴侣 CodeMate</h3>
-              <p class="card-desc">基于大模型的重构与补全插件，把重复劳动交给模型。</p>
-              <span class="card-tag">AI 工具 · 2023</span>
-            </article>
+              <h3 class="card-title">JavaInfoHunter</h3>
+              <p class="card-desc">Java 21 + Spring Boot 的分布式信息采集系统，以 Agent 编排为核心，接入 Spring AI 与百炼大模型。</p>
+              <span class="card-tag">开源项目 · Java / React · 2026</span>
+            </a>
           </div>
           <div class="work-row reveal">
-            <article class="work-card">
+            <a class="work-card" href="https://github.com/ReganQing/ron-ai-agent-backend" target="_blank" rel="noopener">
               <div class="card-top">
                 <span class="idx">03</span>
                 <img class="leaf" src="assets/svg/2_81.svg" alt="">
               </div>
-              <h3 class="card-title">技术随笔 · 100 篇</h3>
-              <p class="card-desc">关于工程、AI 与产品思考的长期写作，已持续更新三年。</p>
-              <span class="card-tag">写作专栏 · 2022–至今</span>
-            </article>
-            <article class="work-card">
+              <h3 class="card-title">Ron AI Agent</h3>
+              <p class="card-desc">个人 AI 智能体全栈应用：Java 后端支撑多类型研究任务，Vue 3 + TypeScript 前端支持双模型对话。</p>
+              <span class="card-tag">全栈项目 · Java / Vue 3 · 2026</span>
+            </a>
+            <a class="work-card" href="http://114.55.211.108:8090/" target="_blank" rel="noopener">
               <div class="card-top">
                 <span class="idx">04</span>
                 <img class="leaf" src="assets/svg/2_90.svg" alt="">
               </div>
-              <h3 class="card-title">开源贡献</h3>
-              <p class="card-desc">在多个社区维护核心模块，也乐于把踩过的坑写成文档。</p>
-              <span class="card-tag">社区 · 持续中</span>
-            </article>
+              <h3 class="card-title">技术博客 · Ron567</h3>
+              <p class="card-desc">自建 Halo 博客持续写作，聚焦 AI Agent、后端工程与软件设计，从设计模式写到 Vibe Coding。</p>
+              <span class="card-tag">技术写作 · 2024–至今</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- ===================== GITHUB PROJECTS（数据来自 SQLite，经 /api/projects） ===================== -->
+        <section class="github" id="github">
+          <div class="section-head reveal">
+            <p class="eyebrow">OPEN SOURCE · 开源项目</p>
+            <h2 class="title">在 GitHub 上耕耘</h2>
+            <div class="sync-widget">
+              <button type="button" class="sync-btn" id="sync-btn" title="手动同步 GitHub 与博客数据">↻ 同步</button>
+              <span class="sync-time" id="sync-time"></span>
+            </div>
+          </div>
+          <div class="gh-grid reveal" id="gh-grid">
+            <p class="data-empty">正在加载项目数据…</p>
+          </div>
+          <div class="section-foot reveal">
+            <a class="more-link" href="https://github.com/ReganQing?tab=repositories" target="_blank" rel="noopener">在 GitHub 查看全部仓库 →</a>
+          </div>
+        </section>
+
+        <!-- ===================== BLOG POSTS（数据来自 SQLite，经 /api/posts） ===================== -->
+        <section class="blog" id="blog">
+          <div class="section-head reveal">
+            <p class="eyebrow">WRITING · 技术随笔</p>
+            <h2 class="title">写下来，才算想明白</h2>
+          </div>
+          <div class="blog-list reveal" id="blog-list">
+            <p class="data-empty">正在加载文章数据…</p>
+          </div>
+          <div class="section-foot reveal">
+            <a class="more-link" href="http://114.55.211.108:8090/" target="_blank" rel="noopener">前往博客阅读全部文章 →</a>
           </div>
         </section>
 
@@ -369,8 +491,8 @@
             </div>
             <div class="contact-row">
               <a class="contact-pill" href="mailto:ron567@devmail.com">ron567@devmail.com</a>
-              <a class="contact-pill" href="#">GitHub · @ron567</a>
-              <a class="contact-pill" href="#">Blog · ron567.dev</a>
+              <a class="contact-pill" href="https://github.com/ReganQing" target="_blank" rel="noopener">GitHub · @ReganQing</a>
+              <a class="contact-pill" href="http://114.55.211.108:8090/" target="_blank" rel="noopener">Blog · Ron567</a>
             </div>
             <div class="social-row">
               <a class="social-link" href="#" aria-label="社交平台 1"><img src="assets/svg/2_110.svg" alt=""></a>
@@ -387,6 +509,10 @@
     </div>
   </div>
 
+  <button type="button" class="to-top" id="to-top" aria-label="返回顶部" title="返回顶部">
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
+  </button>
+
   <script>
     // Proportional scaling: keep the 1440px design canvas, scale to viewport width (cap at 1x).
     function fit(){
@@ -401,6 +527,17 @@
     window.addEventListener('load', fit);
     fit();
 
+    // Back to top: show after one viewport of scrolling, smooth-scroll to top on click
+    var toTop = document.getElementById('to-top');
+    function toggleToTop(){
+      toTop.classList.toggle('show', window.scrollY > window.innerHeight * 0.8);
+    }
+    window.addEventListener('scroll', toggleToTop, { passive: true });
+    toggleToTop();
+    toTop.addEventListener('click', function(){
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
     // Subtle scroll reveal (layout-neutral)
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(e){
@@ -410,5 +547,6 @@
     document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
   </script>
   <script src="weather.js" defer></script>
+  <script src="site-data.js" defer></script>
 </body>
 </html>
