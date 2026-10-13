@@ -6,7 +6,7 @@
 
 const GITHUB_USER = 'ReganQing';
 const GITHUB_API = `https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=updated`;
-const BLOG_BASE = 'http://114.55.211.108:8090';
+const BLOG_BASE = 'https://blog.ron567.top';
 const HALO_API = `${BLOG_BASE}/apis/api.content.halo.run/v1alpha1`;
 const FEATURED_LIMIT = 6;
 const FETCH_TIMEOUT = 15000;
