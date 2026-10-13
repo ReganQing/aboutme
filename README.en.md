@@ -9,7 +9,7 @@ A personal homepage in a dark-green glassmorphism style that automatically aggre
 ## ✨ Features
 
 - **GitHub project showcase** — Automatically fetches non-fork original repositories from [@ReganQing](https://github.com/ReganQing), scored and filtered for the most representative ones (language, stars, description, last update)
-- **Blog post aggregation** — Pulls the article list (title, excerpt, categories, tags, publish date) from my [tech blog](http://114.55.211.108:8090/) via the Halo public content API
+- **Blog post aggregation** — Pulls the article list (title, excerpt, categories, tags, publish date) from my [tech blog](https://blog.ron567.top/) via the Halo public content API
 - **Data sync mechanism** — Server syncs automatically every 30 minutes, with a manual "↻ Sync" button on the page
 - **Dynamic weather background** — Canvas particle system with switchable sun / rain / snow effects
 - **1440px proportional canvas** — Preserves the design layout, scaled proportionally to the viewport width
