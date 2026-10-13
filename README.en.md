@@ -4,7 +4,7 @@ English | [简体中文](./README.md)
 
 A personal homepage in a dark-green glassmorphism style that automatically aggregates and showcases my GitHub open-source projects and Halo blog posts.
 
-**Live site**: https://ron567-home.vercel.app
+**Live site**: https://www.ron567.top
 
 ## ✨ Features
 
