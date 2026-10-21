@@ -88,11 +88,9 @@
   /* ---------- 博客文章 ---------- */
   function renderPosts(list) {
     var wrap = document.getElementById('blog-list');
+    // 初始 HTML 已包含精选文章；空结果或接口故障时保留这些可访问的入口。
+    if (!Array.isArray(list) || !list.length) { return; }
     wrap.innerHTML = '';
-    if (!list.length) {
-      wrap.appendChild(el('p', 'data-empty', '暂无文章数据，试试右上角「同步」。'));
-      return;
-    }
     list.forEach(function (p) {
       var item = el('a', 'blog-item');
       item.href = p.url;
@@ -149,25 +147,17 @@
   /* ---------- 加载 ---------- */
   function showFallback() {
     var grid = document.getElementById('gh-grid');
-    var wrap = document.getElementById('blog-list');
-    var msg = '数据服务未启动 — 运行 node server/server.js 后刷新即可加载。';
+    if (grid.querySelector('a')) { return; }
     grid.innerHTML = '';
-    wrap.innerHTML = '';
-    grid.appendChild(el('p', 'data-empty', msg));
-    wrap.appendChild(el('p', 'data-empty', msg));
+    grid.appendChild(el('p', 'data-empty', '项目列表暂时无法更新，可通过下方链接查看 GitHub 仓库。'));
   }
 
   function loadAll() {
     return Promise.all([
-      getJson('/api/projects?featured=1'),
-      getJson('/api/posts')
-    ]).then(function (res) {
-      renderProjects(res[0]);
-      renderPosts(res[1]);
-      return renderSyncStatus();
-    }).catch(function () {
-      showFallback();
-    }).then(function () {
+      getJson('/api/projects?featured=1').then(renderProjects).catch(showFallback),
+      getJson('/api/posts').then(renderPosts).catch(function () { /* 保留精选文章 */ }),
+      renderSyncStatus()
+    ]).then(function () {
       refreshLayout();
     });
   }

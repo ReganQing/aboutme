@@ -13,6 +13,8 @@
 - **数据同步机制** — 服务端每 30 分钟自动同步，页面提供手动「↻ 同步」按钮
 - **动态天气背景** — Canvas 粒子系统实现晴 / 雨 / 雪三种可切换的背景效果
 - **1440px 等比缩放画布** — 保留设计稿布局，按视口宽度等比缩放
+- **搜索与分享信息** — 独立标题和描述、canonical、Open Graph / Twitter Card、ProfilePage 结构化数据、robots.txt 与单页站点地图
+- **无需脚本的文章入口** — 初始 HTML 提供三篇精选文章；动态接口可更新列表，接口异常时保留精选链接
 
 ## 🗂 项目结构
 
@@ -41,6 +43,7 @@ ron567-home/
 cd ron567-home
 npm start          # 启动服务 http://localhost:3567（启动时自动同步一次）
 npm run sync       # 仅手动执行一次数据同步
+npm test           # 验证文章入口在接口异常时仍可用，以及首页 SEO 信息
 ```
 
 ## 🔌 API 一览
@@ -62,6 +65,12 @@ npm run sync       # 仅手动执行一次数据同步
 cd ron567-home
 vercel --prod --yes
 ```
+
+## SEO 维护
+
+个人主页使用 `https://www.ron567.top/` 作为规范地址，完整文章保留在 `https://blog.ron567.top/`。新增精选文章时，同时维护 `ron567-home/index.html` 中的静态入口；成功获取动态数据后，页面会展示接口返回的列表。
+
+部署后验证 `/robots.txt` 和 `/sitemap.xml` 可访问。在 Google Search Console 中可通过 DNS 验证 `ron567.top` 网域资源，覆盖个人主页和博客；分别提交两个站点的地图。Bing 与百度按目标读者接入。搜索平台验证和实际收录需要账号侧操作，源代码无法代替。
 
 ## 📄 License
 
