@@ -5,6 +5,7 @@
   "description": "Ron567 个人主页：静态页面 + 本地数据服务（GitHub 项目 / 博客文章同步至 SQLite）",
   "main": "server/server.js",
   "scripts": {
+    "test": "node --test tests/*.test.cjs",
     "start": "node server/server.js",
     "sync": "node server/sync.js",
     "sync:github": "node server/sync.js github",
